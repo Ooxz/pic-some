@@ -7,8 +7,14 @@ function ContextProvider(props){
 
 useEffect(() =>{
 	fetch("https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json")
-	.then((response) => response.json())
+	.then(res => res.json())
+	.then(data => setAllPhotos(data))
+	.catch((err) => {
+		console.log(err.message)
+	})
 }, [])
+
+console.log(allPhotos)
 
 return(
 	<Context.Provider value={{allPhotos}}>
