@@ -2,12 +2,11 @@ import React, {useContext} from "react"
 import {Context} from "../context/context"
 
 function Cart() {
-    const {cartItems, allPhotos} = useContext(Context)
+    const {allPhotos} = useContext(Context)
     // write the function to add items to the cart here I think
 
-    function addItem() {
 
-    }
+
 
     return (
         <main className="cart-page">

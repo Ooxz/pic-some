@@ -4,17 +4,24 @@ import PropTypes from "prop-types"
 
 function Images({className, img}) {
     const [hover, setHover] = useState(false)
-    const {toggleFavorite} = useContext(Context)
+    const {toggleFavorite, addToCart, cartItems, removeFromCart} = useContext(Context)
 
-    
+    function heartIcon() {
+        if(img.isFavorite) {
+            return <i className="ri-heart-fill favorite" onClick={() => toggleFavorite(img.id)}></i>
+        } else if(hover) {
+            return <i className="ri-heart-line favorite" onClick={() => toggleFavorite(img.id)}></i>
+        }
+    }
 
-    const heartIcon = 
-    hover && 
-    <i 
-    onClick={() => toggleFavorite(img.id)} 
-    className={img.isFavorite ? "ri-heart-fill favorite" : "ri-heart-line favorite"}>
-    </i>
-    const cartIcon = hover &&<i className="ri-add-circle-line cart"></i>
+     function cartIcon() {
+        const alreadyInCart = cartItems.some(item => item.id === img.id)
+        if(alreadyInCart) {
+            return <i onClick={() => removeFromCart(img.id)} className="ri-shopping-cart-fill cart"></i>
+        } else if(hover) {
+            return <i className="ri-add-circle-line cart" onClick={() => addToCart(img)}></i>
+        }
+    }
 
     return (
         <div 
@@ -24,8 +31,8 @@ function Images({className, img}) {
         }
         >
             <img src={img.url} className="image-grid"/>
-            {heartIcon}
-            {cartIcon}
+            {heartIcon()}
+            {cartIcon()}
         </div>
     )
 }
@@ -33,8 +40,8 @@ function Images({className, img}) {
 Image.propTypes= {
     className: PropTypes.string,
     img: PropTypes.shape({
-        id: PropTypes.string,
-        url: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
         isFavorite: PropTypes.bool,
     })
 }

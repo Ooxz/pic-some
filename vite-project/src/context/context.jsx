@@ -33,10 +33,19 @@ useEffect(() =>{
 		setAllPhotos(updatedArr)
     }
 
+	function addToCart(newItem) {
+		setCartItems(prevCartItem => [...prevCartItem, newItem])
+	}
+
+	function removeFromCart(id) {
+		setCartItems(prevCartItem => prevCartItem.filter(item => item.id !== id))
+	}
+
+	console.log(cartItems)
 
 
 return(
-	<Context.Provider value={{allPhotos, toggleFavorite, cartItems}}>
+	<Context.Provider value={{allPhotos, toggleFavorite, addToCart, cartItems, removeFromCart}}>
 		{props.children}
 	</Context.Provider>
 )
