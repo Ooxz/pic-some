@@ -103,6 +103,10 @@ img.image-grid {
   cursor: pointer;
 }
 
+.no-items {
+  text-align: center;
+}
+
 .wide {
   grid-column: span 2;
 }

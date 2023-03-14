@@ -41,11 +41,24 @@ useEffect(() =>{
 		setCartItems(prevCartItem => prevCartItem.filter(item => item.id !== id))
 	}
 
+	function emptyCart(){
+		setCartItems([])
+	}
+
 	console.log(cartItems)
 
 
 return(
-	<Context.Provider value={{allPhotos, toggleFavorite, addToCart, cartItems, removeFromCart}}>
+	<Context.Provider value=
+	{{
+		allPhotos, 
+		toggleFavorite, 
+		addToCart, 
+		cartItems, 
+		removeFromCart, 
+		emptyCart
+		}}
+		>
 		{props.children}
 	</Context.Provider>
 )
