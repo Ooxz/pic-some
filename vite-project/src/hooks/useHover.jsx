@@ -1,15 +1,36 @@
-import React, {useState} from "react"
+import {useState, useEffect, useRef} from "react"
+
 
 function useHover() {
+	
 	const [hover, setHover] = useState(false)
+	const ref = useRef(null)
 
-	function mouseEnter() {
-		setHover (true)   
-	}
+	function enter() {
+        setHover(true)
+    }
+    
+    function leave() {
+    setHover(false)
+    }
+    
+    useEffect(() => {
+		if(ref.current) {
+			ref.current.addEventListener("mouseenter", enter)
+        	ref.current.addEventListener("mouseleave", leave)
+		}
+        
+        
+        return () => {    
+			if(ref.current) {
+				ref.current.removeEventListener("mouseenter", enter)
+				ref.current.removeEventListener("mouseleave", leave)
+			}
+           
+        }
+    }, [])
 
-	function mouseLeave() {
-		setHover(false)
-	}
+	return [hover, ref]
 
 }
 
